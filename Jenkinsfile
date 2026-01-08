@@ -12,5 +12,12 @@ pipeline {
                 sh 'node --version'
             }
         }
+        stage('Build') {
+            steps {
+                sh 'npm ci'
+                sh 'npm run build'
+        }
+    }
+
     }
 }
