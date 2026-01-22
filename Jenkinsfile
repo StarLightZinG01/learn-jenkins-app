@@ -7,6 +7,9 @@ pipeline {
     }
     stages {
         stage('Test npm') {
+            agent {
+                docker
+            }
             steps {
                 sh 'npm --version'
                 sh 'node --version'
@@ -19,9 +22,9 @@ pipeline {
             }
         }
     }
-     post {
-        always {
-            junit 'test-results/junit.xml'
-        }
-    }
+    //  post {
+    //     always {
+    //         junit 'test-results/junit.xml'
+    //     }
+    // }
 }
