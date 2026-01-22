@@ -1,16 +1,11 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18-alpine' // ใช้ Image นี้ที่มี Node.js มาให้แล้ว
-            reuseNode true 
-        }
-    }
+    agent any
     stages {
         stage('Test npm') {
             agent {
                 docker {
                     image 'node:18-alpine' // ใช้ Image นี้ที่มี Node.js มาให้แล้ว
-                    reuseNode true 
+                    reuseNode true
                 }
             }
             steps {
@@ -19,15 +14,16 @@ pipeline {
             }
         }
         stage('Build') {
+            agent {
+                docker {
+                    image 'node:18-alpine' // ใช้ Image นี้ที่มี Node.js มาให้แล้ว
+                    reuseNode true
+                }
+            }
             steps {
-                sh 'npm install'
+                sh 'npm ci'
                 sh 'npm run build'
             }
         }
     }
-    //  post {
-    //     always {
-    //         junit 'test-results/junit.xml'
-    //     }
-    // }
 }
